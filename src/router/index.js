@@ -2,6 +2,8 @@ import { createWebHashHistory , createRouter } from "vue-router"
 
 import Layout from '../views/layout.vue'
 import Home from '../views/home/index.vue'
+import TopCategory from '../views/category/index.vue'
+import SubCategory from '../views/category/sub.vue'
 
 //路由规则
 const routes = [
@@ -12,6 +14,14 @@ const routes = [
             {
                 path:'/',
                 component:Home
+            },
+            {
+                path:'/category/:id',
+                component:TopCategory
+            },
+            {
+                path:'/category/sub/:id',
+                component:SubCategory
             }
         ]
     }

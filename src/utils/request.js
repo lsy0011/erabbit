@@ -17,7 +17,7 @@ instance.interceptors.request.use(config => {
     const {
         profile
     } = store.state.user
-    console.log("token",profile.token);
+    // console.log("token",profile.token);
     // 2、判断是否有token
     if (profile.token) {
         // 3、设置Token
