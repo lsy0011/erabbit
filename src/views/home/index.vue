@@ -1,25 +1,25 @@
 <template>
-  <div class="container">
-    首页模块
-    <nav class="a">1111</nav>
+  <div class="page-home">
+    <div class="home-entry">
+      <div class="container">
+        <!-- 左侧分类 -->
+        <HomeCategory />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import HomeCategory from './components/home-category.vue'
 export default {
-  name:"HomePage"
+  name:"HomePage",
+  components:{
+    HomeCategory 
+  }
 }
 </script>
 
 <style lang="less" scoped>
 @import '../../assets/style/mixins.less';
 @import '../../assets/style/variables.less';
-.container{
-  .hoverShadow();
-  color: @xtxColor;
-
-  .a{
-    color: @warnColor;
-  }
-}
 </style>
