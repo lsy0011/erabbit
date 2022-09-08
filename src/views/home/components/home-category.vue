@@ -10,6 +10,7 @@
       >
         <router-link :to="`/category/${val.id}`">{{ val.name }}</router-link>
         <template v-if="val.children">
+          <!-- && loading == false -->
           <router-link
             v-for="item in val.children"
             :key="item.id"
@@ -17,6 +18,16 @@
             >{{ item.name }}</router-link
           >
         </template>
+        <!-- 骨架屏 -->
+        <span v-else>
+          <xtxSkeleton
+            width="60px"
+            height="18px"
+            style="margin-right: 5px"
+            bg="rgba(255,255,255,0.2)"
+          />
+          <xtxSkeleton width="50px" height="18px" bg="rgba(255,255,255,0.2)" />
+        </span>
       </li>
     </ul>
     <!-- 弹层 -->
@@ -61,10 +72,15 @@
 </template>
 
 <script>
-import { computed, reactive, ref } from "vue";
+import { computed, reactive, ref, onMounted } from "vue";
 import { useStore } from "vuex";
 import { findBrand } from "../../../api/home";
+import xtxSkeleton from "../../../components/library/xtx-skeleton.vue";
+import xtxCarousel from "../../../components/library/xtx-carousel.vue";
 export default {
+  components: {
+    xtxSkeleton
+  },
   setup() {
     const brand = reactive({
       id: "brand",
@@ -106,7 +122,13 @@ export default {
       brand.brands = data.result;
     });
 
-    return { menuList, CategoryId, currCategory };
+    const loading = ref(true);
+
+    onMounted(() => {
+      loading.value = false;
+    });
+
+    return { menuList, CategoryId, currCategory, loading };
   },
 };
 </script>
@@ -137,6 +159,17 @@ export default {
         &:first-child {
           font-size: 16px;
         }
+      }
+    }
+    .xtx-skeleton {
+      animation: fade 1s linear infinite alternate;
+    }
+    @keyframes fade {
+      from {
+        opacity: 0.2;
+      }
+      to {
+        opacity: 1;
       }
     }
   }

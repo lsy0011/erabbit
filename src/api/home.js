@@ -5,3 +5,7 @@ export const findBrand = (limit = 6) => {
         limit
     })
 }
+
+export const findBanner  = () => {
+    return request('/home/banner', 'get')
+}
