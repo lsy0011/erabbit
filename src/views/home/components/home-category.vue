@@ -76,7 +76,6 @@ import { computed, reactive, ref, onMounted } from "vue";
 import { useStore } from "vuex";
 import { findBrand } from "../../../api/home";
 import xtxSkeleton from "../../../components/library/xtx-skeleton.vue";
-import xtxCarousel from "../../../components/library/xtx-carousel.vue";
 export default {
   components: {
     xtxSkeleton
@@ -118,7 +117,7 @@ export default {
     });
 
     // 品牌分类调取数据
-    findBrand().then((data) => {
+    findBrand(6).then((data) => {
       brand.brands = data.result;
     });
 

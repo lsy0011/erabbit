@@ -5,29 +5,35 @@
         <div class="txt">
           <span>人气推荐</span>
           <span>人气爆款，不容错过</span>
-          <!-- <span>新鲜好物</span>
-          <span>新鲜出炉，品质靠谱</span> -->
         </div>
-        <!-- <el-button class="button" text>全部 ></el-button> -->
       </div>
     </template>
-    <ul ref="pannel" class="goods-list">
-      <li v-for="item in goods" :key="item.id">
-        <RouterLink to="/">
-          <img :src="item.picture" alt="" />
-          <p class="name">{{ item.title }}</p>
-          <p class="desc">{{ item.alt }}</p>
-        </RouterLink>
-      </li>
-    </ul>
+    <div style="position: relative; height: 426px">
+      <Transition name="fade">
+        <ul v-if="goods.length" ref="pannel" class="goods-list">
+          <li v-for="item in goods" :key="item.id">
+            <RouterLink to="/">
+              <img :src="item.picture" alt="" />
+              <p class="name">{{ item.title }}</p>
+              <p class="desc">{{ item.alt }}</p>
+            </RouterLink>
+          </li>
+        </ul>
+        <HomeSkeleton v-else
+      /></Transition>
+    </div>
   </el-card>
 </template>
 
 <script>
 import { ref } from "vue";
+import HomeSkeleton from "./home-skeleton.vue";
 import { findHot } from "../../../api/home";
 export default {
   name: "HomeNew",
+  components: {
+    HomeSkeleton,
+  },
   setup() {
     const goods = ref([]);
     findHot().then((data) => {

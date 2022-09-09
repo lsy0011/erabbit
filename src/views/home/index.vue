@@ -14,7 +14,8 @@
       <HomeHot />
     </div>
     <div class="container">
-      
+      <!-- 热门品牌 -->
+      <HomeBrand />
     </div>
   </div>
 </template>
@@ -22,8 +23,9 @@
 <script>
 import HomeCategory from "./components/home-category.vue";
 import HomeBanner from "./components/home-banner.vue";
-import HomeNew from './components/home-pannel.vue'
+import HomeNew from "./components/home-new.vue";
 import HomeHot from "./components/home-hot.vue";
+import HomeBrand from "./components/home-brand.vue"
 export default {
   name: "HomePage",
   components: {
@@ -31,12 +33,13 @@ export default {
     HomeBanner,
     HomeNew,
     HomeHot,
+    HomeBrand
   },
 };
 </script>
 
 <style lang="less" scoped>
-.new_hot{
+.new_hot {
   background-color: #fff;
   width: 100%;
 }
