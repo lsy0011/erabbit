@@ -7,7 +7,7 @@
       <!-- 轮播图 -->
       <HomeBanner />
     </div>
-    <div class="new_hot">
+    <div class="new_hot_product">
       <!-- 新鲜好物 -->
       <HomeNew />
       <!-- 人气推荐 -->
@@ -16,6 +16,14 @@
     <div class="container">
       <!-- 热门品牌 -->
       <HomeBrand />
+    </div>
+    <div class="new_hot_product">
+      <!-- 商品区块 -->
+      <HomeProduct />
+    </div>
+    <div class="container">
+      <!-- 最新专题 -->
+      <HomeSpecial />
     </div>
   </div>
 </template>
@@ -26,6 +34,8 @@ import HomeBanner from "./components/home-banner.vue";
 import HomeNew from "./components/home-new.vue";
 import HomeHot from "./components/home-hot.vue";
 import HomeBrand from "./components/home-brand.vue"
+import HomeProduct from './components/home-product.vue'
+import HomeSpecial from './components/home-special.vue'
 export default {
   name: "HomePage",
   components: {
@@ -33,13 +43,15 @@ export default {
     HomeBanner,
     HomeNew,
     HomeHot,
-    HomeBrand
+    HomeBrand,
+    HomeProduct,
+    HomeSpecial
   },
 };
 </script>
 
 <style lang="less" scoped>
-.new_hot {
+.new_hot_product {
   background-color: #fff;
   width: 100%;
 }
