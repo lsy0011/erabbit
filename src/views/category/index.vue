@@ -29,7 +29,7 @@
         <h3>-{{ val.name }}-</h3>
         <p class="tag">{{ val.desc }}</p>
       </div>
-      <el-button class="button" text>查看更多 ></el-button>
+      <el-button class="button" text @click="router.push(`/category/sub/${val.id}`)">查看更多 ></el-button>
       <div class="body">
         <GoodsItem v-for="item in val.goods" :key="item.id" :goods="item" />
       </div>
@@ -40,7 +40,7 @@
 <script>
 import { ref, computed, watch } from "vue";
 import { useStore } from "vuex";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { findBanner } from "../../api/home";
 import GoodsItem from "./components/goods-item.vue";
 import { findTopCategory } from "../../api/category";
@@ -56,6 +56,7 @@ export default {
 
     const store = useStore();
     const route = useRoute();
+    const router = useRouter()
     
     // 二级分类
     const topCatetory = computed(() => {
@@ -82,7 +83,7 @@ export default {
       },
       { immediate: true }
     );
-    return { carousel, topCatetory, subList };
+    return { carousel, topCatetory, subList, router };
   },
 };
 </script>

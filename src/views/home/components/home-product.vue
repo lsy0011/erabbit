@@ -13,7 +13,7 @@
         <ul class="category">
           <li v-for="val in item.children" :key="val.id">{{ val.name }}</li>
         </ul>
-        <el-button class="button" text>查看全部 ></el-button>
+        <el-button class="button" text @click="router.push(`/category/${item.id}`)">查看全部> </el-button>
       </div>
     </template>
     <div class="box">
@@ -34,9 +34,10 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref,toRaw } from "vue";
 import HomeGoods from "./home-goods.vue";
 import { findGoods } from "../../../api/home";
+import { useRoute,useRouter } from "vue-router";
 export default {
   name: "HomeProduct",
   components: { HomeGoods },
@@ -45,7 +46,18 @@ export default {
     findGoods().then((data) => {
       goods.value = data.result;
     });
-    return { goods };
+    const route = useRoute();
+    const router = useRouter()
+    // const clickMe = (res) => {
+    //   console.log('path',route.path);
+    //   // if(route.path === '/'){
+    //     // router.push(`/category/${goods.value}`)
+    //   // }else{
+    //     // router.push('/')
+    //   // }
+    //   console.log('id',toRaw(goods.value.res.id));
+    // }
+    return { goods, route,router };
   },
 };
 </script>
