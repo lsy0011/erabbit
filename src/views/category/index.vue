@@ -56,6 +56,7 @@ export default {
 
     const store = useStore();
     const route = useRoute();
+    
     // 二级分类
     const topCatetory = computed(() => {
       let cate = {};
@@ -77,7 +78,7 @@ export default {
     watch(
       () => route.params.id,
       (newVal) => {
-        newVal && getSubList();
+        if(newVal && `/category/${newVal}` === route.path) getSubList()
       },
       { immediate: true }
     );
