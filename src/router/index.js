@@ -4,6 +4,7 @@ import Layout from '../views/layout.vue'
 import Home from '../views/home/index.vue'
 import TopCategory from '../views/category/index.vue'
 import SubCategory from '../views/category/sub.vue'
+import Goods from '../views/goods/index.vue'
 
 //路由规则
 const routes = [
@@ -25,7 +26,7 @@ const routes = [
             },
             {
                 path:'/product/:id',
-                component:SubCategory
+                component:Goods 
             }
         ]
     }

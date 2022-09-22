@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { ref,toRaw } from "vue";
+import { ref } from "vue";
 import HomeGoods from "./home-goods.vue";
 import { findGoods } from "../../../api/home";
 import { useRoute,useRouter } from "vue-router";
@@ -43,20 +43,11 @@ export default {
   components: { HomeGoods },
   setup() {
     const goods = ref([]);
-    findGoods().then((data) => {
+    findGoods().then(data => {
       goods.value = data.result;
     });
     const route = useRoute();
     const router = useRouter()
-    // const clickMe = (res) => {
-    //   console.log('path',route.path);
-    //   // if(route.path === '/'){
-    //     // router.push(`/category/${goods.value}`)
-    //   // }else{
-    //     // router.push('/')
-    //   // }
-    //   console.log('id',toRaw(goods.value.res.id));
-    // }
     return { goods, route,router };
   },
 };

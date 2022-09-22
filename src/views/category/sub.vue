@@ -11,7 +11,7 @@
       <el-breadcrumb-item>{{ category.sub.name }}</el-breadcrumb-item>
     </el-breadcrumb>
     <!-- 筛选 -->
-    <SubFilter @sort-change="changeFilter"/>
+    <SubFilter @sort-change="changeFilter" />
     <!-- 商品 -->
     <SubSort class="goods-list" @filter-change="changeSort" />
     <ul v-infinite-scroll="load" style="overflow: auto" class="infinite">
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { computed, ref, watch, reactive } from "vue";
+import { computed, ref, watch, reactive, toRaw } from "vue";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import SubFilter from "./components/sub-filter.vue";
@@ -58,17 +58,17 @@ export default {
     };
     let loading = ref(false);
     let finished = ref(false);
-    const goodList = ref([]);
+    let goodList = ref([]);
+    let goodlist = ref([]);
     findSubCategoryGoods(reqParams).then(({ result }) => {
       goodList.value = result;
     });
-    const load = () => {
+    let load = () => {
       loading.value = true;
-      reqParams.categoryId = route.params.id;
+      reqParams.categoryId = route.params.id
       findSubCategoryGoods(reqParams).then(({ result }) => {
         if (result.items.length) {
-          // goodList.value.items.push(...result.items)
-             goodList.value.items.push(...result.items)
+          goodList.value.items.push(...result.items);
           reqParams.page++;
         } else {
           // 加载完毕
@@ -78,6 +78,20 @@ export default {
         loading.value = false;
       });
     };
+    // let load = () => {
+    //   findSubCategoryGoods(reqParams).then(({ result }) => {
+    //     console.log("length", result.items.length);
+    //     console.log('list',[goodList.value]);
+    //     [goodList.value].push(...result.items);
+    //     reqParams.page++;
+    //     console.log("page", reqParams.page);
+    //     if (result.items.length) {
+    //       result.items.push(...result.items);
+    //       reqParams.page ++;
+    //     console.log("page", reqParams.page);
+    //     }
+    //   });
+    // };
     watch(
       () => route.params.id,
       (newVal) => {
@@ -91,23 +105,31 @@ export default {
         }
       }
     );
-    
 
-     const changeFilter = (filterParams) => {
-      reqParams = { ...reqParams, ...filterParams }
-      reqParams.page = 1
-      goodList.value = []
-      finished.value = false
-    }
+    const changeFilter = (filterParams) => {
+      reqParams = { ...reqParams, ...filterParams };
+      reqParams.page = 1;
+      goodList.value = [];
+      finished.value = false;
+    };
     // 监听排序改变
     const changeSort = (sortParams) => {
-      reqParams = { ...reqParams, ...sortParams }
-      reqParams.page = 1
-      goodList.value = []
-      finished.value = false
-    }
+      reqParams = { ...reqParams, ...sortParams };
+      reqParams.page = 1;
+      goodList.value = [];
+      finished.value = false;
+    };
 
-    return { category, goodList, load, loading, finished, changeFilter, changeSort };
+    return {
+      category,
+      goodList,
+      load,
+      loading,
+      finished,
+      changeFilter,
+      changeSort,
+      goodlist,
+    };
   },
 };
 </script>
