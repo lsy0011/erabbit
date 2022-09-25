@@ -25,6 +25,10 @@
         <div class="spec">
           <GoodName :goods="goods" />
           <GoodsSku :goods="goods" @change="changeSku" />
+          <div class="num">
+            数量：<el-input-number v-model="num" :max="goods.inventory" class="input-number" />
+          </div>
+          <el-button type="primary" size="large" class="button">加入购物车</el-button>
         </div>
       </div>
       <!-- 商品推荐 -->
@@ -64,6 +68,7 @@ export default {
     },
   },
   setup(props) {
+    const num = ref(1)
     const useGoods = () => {
       // 出现路由地址商品ID发生变化，但是不会重新初始化组件
       const goods = ref(null);
@@ -106,7 +111,7 @@ export default {
       }
     };
 
-    return { goods, changeSku };
+    return { goods, changeSku, num};
   },
 };
 // 获取商品详情
@@ -127,6 +132,23 @@ export default {
   .spec {
     flex: 1;
     padding: 30px 30px 30px 0;
+    color: #999;
+
+    .num{
+      margin-left: 10px;
+      .input-number{
+        margin-left: 10px;
+      }
+    }
+
+    .button{
+      width: 200px;
+      height: 65px;
+      font-size: 16px;
+      margin-left: 60px;
+      margin-top: 30px;
+      background-color: @xtxColor;
+    }
   }
 }
 .goods-footer {
