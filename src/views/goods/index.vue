@@ -24,6 +24,7 @@
         </div>
         <div class="spec">
           <GoodName :goods="goods" />
+          <GoodsSku :goods="goods" @change="changeSku" />
         </div>
       </div>
       <!-- 商品推荐 -->
@@ -51,10 +52,11 @@ import { useRoute } from "vue-router";
 import GoodsImg from "./components/goods-image.vue";
 import GoodsSales from "./components/goods-sales.vue";
 import GoodName from "./components/goods-name.vue";
+import GoodsSku from "./components/goods-sku.vue";
 
 export default {
   name: "XtxGoodsPage",
-  components: { GoodsRelevant, GoodsImg, GoodsSales, GoodName },
+  components: { GoodsRelevant, GoodsImg, GoodsSales, GoodName, GoodsSku },
   props: {
     images: {
       type: Array,
@@ -85,7 +87,26 @@ export default {
     };
     const goods = useGoods();
 
-    return { goods };
+    findGoods("1369155859933827074").then(({ result }) => {
+      result.skus.forEach((sku) => {
+        const sortSpecs = [];
+        result.specs.forEach((spec) => {
+          sortSpecs.push(sku.specs.find((item) => item.name === spec.name));
+        });
+        sku.specs = sortSpecs;
+      });
+      goods.value = result;
+    });
+
+    const changeSku = (sku) => {
+      if (sku.skuId) {
+        goods.value.price = sku.price;
+        goods.value.oldPrice = sku.oldPrice;
+        goods.value.inventory = sku.inventory;
+      }
+    };
+
+    return { goods, changeSku };
   },
 };
 // 获取商品详情

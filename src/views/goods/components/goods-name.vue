@@ -24,6 +24,7 @@
       </dd>
     </dl>
   </div>
+
 </template>
 
 <script>
