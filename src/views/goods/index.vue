@@ -5,15 +5,27 @@
       <el-breadcrumb separator="/">
         <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
         <el-breadcrumb-item
-          ><router-link :to="`/category/${goods.categories[0].id}`">{{goods.categories[0].name}}</router-link
-        ></el-breadcrumb-item>
-        <el-breadcrumb-item
-          ><router-link :to="`/category/${goods.categories[1].id}`">{{goods.categories[1].name}}</router-link></el-breadcrumb-item
+          ><router-link :to="`/category/${goods.categories[0].id}`">{{
+            goods.categories[0].name
+          }}</router-link></el-breadcrumb-item
         >
-        <el-breadcrumb-item>{{goods.name}}</el-breadcrumb-item>
+        <el-breadcrumb-item
+          ><router-link :to="`/category/${goods.categories[1].id}`">{{
+            goods.categories[1].name
+          }}</router-link></el-breadcrumb-item
+        >
+        <el-breadcrumb-item>{{ goods.name }}</el-breadcrumb-item>
       </el-breadcrumb>
       <!-- 商品信息 -->
-      <div class="goods-info"></div>
+      <div class="goods-info">
+        <div class="media">
+          <GoodsImg :images="goods.mainPictures" />
+          <GoodsSales />
+        </div>
+        <div class="spec">
+          <GoodName :goods="goods" />
+        </div>
+      </div>
       <!-- 商品推荐 -->
       <GoodsRelevant />
       <!-- 商品详情 -->
@@ -36,11 +48,20 @@ import GoodsRelevant from "./components/goods-relevant.vue";
 import { findGoods } from "../../api/product";
 import { nextTick, ref, watch } from "vue";
 import { useRoute } from "vue-router";
+import GoodsImg from "./components/goods-image.vue";
+import GoodsSales from "./components/goods-sales.vue";
+import GoodName from "./components/goods-name.vue";
+
 export default {
   name: "XtxGoodsPage",
-  components: { GoodsRelevant },
-  setup() {
-    
+  components: { GoodsRelevant, GoodsImg, GoodsSales, GoodName },
+  props: {
+    images: {
+      type: Array,
+      default: () => [],
+    },
+  },
+  setup(props) {
     const useGoods = () => {
       // 出现路由地址商品ID发生变化，但是不会重新初始化组件
       const goods = ref(null);
@@ -63,6 +84,7 @@ export default {
       return goods;
     };
     const goods = useGoods();
+
     return { goods };
   },
 };
@@ -70,9 +92,21 @@ export default {
 </script>
 
 <style scoped lang='less'>
+@import "../../assets/style/variables.less";
 .goods-info {
   min-height: 600px;
   background: #fff;
+  display: flex;
+
+  .media {
+    width: 580px;
+    height: 600px;
+    padding: 30px 50px;
+  }
+  .spec {
+    flex: 1;
+    padding: 30px 30px 30px 0;
+  }
 }
 .goods-footer {
   display: flex;

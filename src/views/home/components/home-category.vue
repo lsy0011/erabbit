@@ -40,7 +40,7 @@
         v-if="currCategory && currCategory.goods && currCategory.goods.length"
       >
         <li v-for="val in currCategory.goods" :key="val.id">
-          <router-link to="/">
+          <router-link :to="`/product/${val.id}`">
             <img :src="val.picture" alt="" />
             <div class="info">
               <p class="name ellipsis-2">{{ val.name }}</p>
