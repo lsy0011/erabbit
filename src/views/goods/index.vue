@@ -57,7 +57,9 @@
             </el-tabs>
           </div>
           <!-- 注意事项 -->
-          <div class="goods-warn"></div>
+          <div class="goods-warn">
+            <GoodsWarn />
+          </div>
         </div>
         <!-- 24热榜+专题推荐 -->
         <div class="goods-aside">
@@ -81,6 +83,7 @@ import GoodName from "./components/goods-name.vue";
 import GoodsSku from "./components/goods-sku.vue";
 import GoodsHot from "./components/goods-hot.vue";
 import GoodsDetail from "./components/goods-detail.vue";
+import GoodsWarn from './components/goods-warn.vue'
 export default {
   name: "XtxGoodsPage",
   components: {
@@ -91,6 +94,7 @@ export default {
     GoodsSku,
     GoodsHot,
     GoodsDetail,
+    GoodsWarn
   },
   props: {
     images: {
