@@ -46,9 +46,12 @@
           <div class="goods-tabs">
             <el-tabs v-model="activeName" class="demo-tabs">
               <el-tab-pane class="tabs" label="商品详情" name="first"
-                >商品详情</el-tab-pane
-              >
-              <el-tab-pane class="tabs" label="商品评价(0+)" name="second"
+                ><GoodsDetail
+              /></el-tab-pane>
+              <el-tab-pane
+                class="tabs"
+                :label="`商品评价(${goods.commentCount})`"
+                name="second"
                 >商品评价(0+)</el-tab-pane
               >
             </el-tabs>
@@ -58,9 +61,9 @@
         </div>
         <!-- 24热榜+专题推荐 -->
         <div class="goods-aside">
-          <GoodsHot :goodsId="goods.id" :type="1"/>
-          <GoodsHot :goodsId="goods.id" :type="2"/>
-          <GoodsHot :goodsId="goods.id" :type="3"/>
+          <GoodsHot :goodsId="goods.id" :type="1" />
+          <GoodsHot :goodsId="goods.id" :type="2" />
+          <GoodsHot :goodsId="goods.id" :type="3" />
         </div>
       </div>
     </div>
@@ -70,16 +73,25 @@
 <script>
 import GoodsRelevant from "./components/goods-relevant.vue";
 import { findGoods } from "../../api/product";
-import { nextTick, ref, watch } from "vue";
+import { nextTick, provide, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import GoodsImg from "./components/goods-image.vue";
 import GoodsSales from "./components/goods-sales.vue";
 import GoodName from "./components/goods-name.vue";
 import GoodsSku from "./components/goods-sku.vue";
 import GoodsHot from "./components/goods-hot.vue";
+import GoodsDetail from "./components/goods-detail.vue";
 export default {
   name: "XtxGoodsPage",
-  components: { GoodsRelevant, GoodsImg, GoodsSales, GoodName, GoodsSku, GoodsHot },
+  components: {
+    GoodsRelevant,
+    GoodsImg,
+    GoodsSales,
+    GoodName,
+    GoodsSku,
+    GoodsHot,
+    GoodsDetail,
+  },
   props: {
     images: {
       type: Array,
@@ -92,6 +104,7 @@ export default {
     const useGoods = () => {
       // 出现路由地址商品ID发生变化，但是不会重新初始化组件
       const goods = ref(null);
+      provide("goods", goods);
       const route = useRoute();
       watch(
         () => route.params.id,
