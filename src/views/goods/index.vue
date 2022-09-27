@@ -83,7 +83,7 @@ import GoodName from "./components/goods-name.vue";
 import GoodsSku from "./components/goods-sku.vue";
 import GoodsHot from "./components/goods-hot.vue";
 import GoodsDetail from "./components/goods-detail.vue";
-import GoodsWarn from './components/goods-warn.vue'
+import GoodsWarn from "./components/goods-warn.vue";
 export default {
   name: "XtxGoodsPage",
   components: {
@@ -94,7 +94,7 @@ export default {
     GoodsSku,
     GoodsHot,
     GoodsDetail,
-    GoodsWarn
+    GoodsWarn,
   },
   props: {
     images: {
