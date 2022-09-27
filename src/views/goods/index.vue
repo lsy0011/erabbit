@@ -26,9 +26,15 @@
           <GoodName :goods="goods" />
           <GoodsSku :goods="goods" @change="changeSku" />
           <div class="num">
-            数量：<el-input-number v-model="num" :max="goods.inventory" class="input-number" />
+            数量：<el-input-number
+              v-model="num"
+              :max="goods.inventory"
+              class="input-number"
+            />
           </div>
-          <el-button type="primary" size="large" class="button">加入购物车</el-button>
+          <el-button type="primary" size="large" class="button"
+            >加入购物车</el-button
+          >
         </div>
       </div>
       <!-- 商品推荐 -->
@@ -37,12 +43,25 @@
       <div class="goods-footer">
         <div class="goods-article">
           <!-- 商品+评价 -->
-          <div class="goods-tabs"></div>
+          <div class="goods-tabs">
+            <el-tabs v-model="activeName" class="demo-tabs">
+              <el-tab-pane class="tabs" label="商品详情" name="first"
+                >商品详情</el-tab-pane
+              >
+              <el-tab-pane class="tabs" label="商品评价(0+)" name="second"
+                >商品评价(0+)</el-tab-pane
+              >
+            </el-tabs>
+          </div>
           <!-- 注意事项 -->
           <div class="goods-warn"></div>
         </div>
         <!-- 24热榜+专题推荐 -->
-        <div class="goods-aside"></div>
+        <div class="goods-aside">
+          <GoodsHot :goodsId="goods.id" :type="1"/>
+          <GoodsHot :goodsId="goods.id" :type="2"/>
+          <GoodsHot :goodsId="goods.id" :type="3"/>
+        </div>
       </div>
     </div>
   </div>
@@ -57,10 +76,10 @@ import GoodsImg from "./components/goods-image.vue";
 import GoodsSales from "./components/goods-sales.vue";
 import GoodName from "./components/goods-name.vue";
 import GoodsSku from "./components/goods-sku.vue";
-
+import GoodsHot from "./components/goods-hot.vue";
 export default {
   name: "XtxGoodsPage",
-  components: { GoodsRelevant, GoodsImg, GoodsSales, GoodName, GoodsSku },
+  components: { GoodsRelevant, GoodsImg, GoodsSales, GoodName, GoodsSku, GoodsHot },
   props: {
     images: {
       type: Array,
@@ -68,7 +87,8 @@ export default {
     },
   },
   setup(props) {
-    const num = ref(1)
+    const activeName = ref("first");
+    const num = ref(1);
     const useGoods = () => {
       // 出现路由地址商品ID发生变化，但是不会重新初始化组件
       const goods = ref(null);
@@ -111,7 +131,7 @@ export default {
       }
     };
 
-    return { goods, changeSku, num};
+    return { goods, changeSku, num, activeName };
   },
 };
 // 获取商品详情
@@ -134,14 +154,14 @@ export default {
     padding: 30px 30px 30px 0;
     color: #999;
 
-    .num{
+    .num {
       margin-left: 10px;
-      .input-number{
+      .input-number {
         margin-left: 10px;
       }
     }
 
-    .button{
+    .button {
       width: 200px;
       height: 65px;
       font-size: 16px;
@@ -166,6 +186,12 @@ export default {
 .goods-tabs {
   min-height: 600px;
   background: #fff;
+  .el-tabs__content {
+    padding: 32px;
+    color: #6b778c;
+    font-size: 34px;
+    font-weight: 600;
+  }
 }
 .goods-warn {
   min-height: 600px;

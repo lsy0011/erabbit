@@ -9,5 +9,5 @@ import ui from '../src/components/library'
 import 'normalize.css'
 // 常用样式
 import '../src/assets/style/common.less'
-createApp(App).use(ui).use(store).use(router).use(ElementPlus, { size: 'small', zIndex: 3000 }).mount('#app')
+createApp(App).use(store).use(router).use(ElementPlus, { size: 'small', zIndex: 3000 }).use(ui).mount('#app')
 
