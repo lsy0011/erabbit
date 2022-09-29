@@ -52,7 +52,7 @@
                 class="tabs"
                 :label="`商品评价(${goods.commentCount})`"
                 name="second"
-                >商品评价(0+)</el-tab-pane
+                ><GoodsComment :goods="goods"/></el-tab-pane
               >
             </el-tabs>
           </div>
@@ -84,6 +84,7 @@ import GoodsSku from "./components/goods-sku.vue";
 import GoodsHot from "./components/goods-hot.vue";
 import GoodsDetail from "./components/goods-detail.vue";
 import GoodsWarn from "./components/goods-warn.vue";
+import GoodsComment from './components/goods-comment.vue'
 export default {
   name: "XtxGoodsPage",
   components: {
@@ -95,6 +96,7 @@ export default {
     GoodsHot,
     GoodsDetail,
     GoodsWarn,
+    GoodsComment
   },
   props: {
     images: {

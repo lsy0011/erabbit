@@ -4,7 +4,7 @@
       <i class="icon" />
       <span class="title">{{ goodsId ? "同类商品推荐" : "猜你喜欢" }}</span>
     </div>
-    <el-carousel height="150px">
+    <el-carousel height="330px">
       <el-carousel-item v-for="item in sliders" :key="item.id">
         <div class="slider">
           <RouterLink
