@@ -8,10 +8,10 @@
               ><i class="iconfont icon-user"></i>{{ profile.account }}</a
             >
           </li>
-          <li><a href="#">退出登录</a></li>
+          <li><a href="#" @click="logout()">退出登录</a></li>
         </template>
         <template v-else>
-          <li><a href="#">请先登录</a></li>
+          <li><router-link to="/login">请先登录</router-link></li>
           <li><a href="#">免费注册</a></li>
         </template>
         <li v-for="val in list" :key="val.id">
@@ -27,8 +27,9 @@
 
 <script>
 // useStore()   PC返回state  移动端不返回state
-import { useStore } from 'vuex'
-import { computed } from 'vue'
+import { useStore } from "vuex";
+import { computed } from "vue";
+import { useRouter } from "vue-router";
 export default {
   setup() {
     const list = [
@@ -40,7 +41,12 @@ export default {
     const store = useStore();
     //不用计算属性没有响应式  需在v-if中直接 $store.state.user.profile.token 和 $store.state.user.profile.account 所以需要加计算属性更方便
     const profile = computed(() => store.state.user.profile);
-    return { list, store, profile };
+    const router = useRouter()
+    const logout = ()=>{
+      store.commit('user/setUser',{})
+      router.push('/login')
+    }
+    return { list, store, profile, logout };
   },
 };
 </script>

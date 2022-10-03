@@ -5,6 +5,7 @@ import Home from '../views/home/index.vue'
 import TopCategory from '../views/category/index.vue'
 import SubCategory from '../views/category/sub.vue'
 import Goods from '../views/goods/index.vue'
+import Login from '../views/login/index.vue'
 
 //路由规则
 const routes = [
@@ -29,6 +30,10 @@ const routes = [
                 component:Goods 
             }
         ]
+    },
+    {
+        path:'/login',
+        component:Login,
     }
 ]
 //createRouter创建路由实例

@@ -8,7 +8,7 @@ export default {
                 nickname: '',
                 account: '',
                 mobile: '',
-                token:''
+                token:'',
             }
         }
     },
